@@ -1,15 +1,6 @@
 // Define UI elements
 var ui = {
-  timer: document.getElementById("timer"),
   robotState: document.getElementById("robot-state"),
-  gyro: {
-    container: document.getElementById("gyro"),
-    val: 0,
-    offset: 0,
-    visualVal: 0,
-    arm: document.getElementById("gyro-arm"),
-    number: document.getElementById("gyro-number")
-  },
   elevatorManip: {
     hatch: {
       lift: false,
@@ -25,20 +16,6 @@ var ui = {
     hatch: document.getElementById("elev-hatch-arm"),
     cargo: document.getElementById("elev-cargo-arm")
   },
-  example: {
-    button: document.getElementById("example-button"),
-    readout: document.getElementById("example-readout")
-  },
-  tuning: {
-    list: document.getElementById("tuning"),
-    button: document.getElementById("tuning-button"),
-    name: document.getElementById("name"),
-    value: document.getElementById("value"),
-    set: document.getElementById("set"),
-    get: document.getElementById("get")
-  },
-  autoSelect: document.getElementById("auto-select"),
-  armPosition: document.getElementById("arm-position"),
   elevatorHeight: {
     val: 0,
     elem: document.getElementById("elevator-height")
@@ -85,100 +62,6 @@ function onValueChanged(key, value, isNew) {
       ui.robotDiagram.elevator.setAttribute("y", 290 - value * 3);
       ui.robotDiagram.elevator.style.transform = `translate(0, ${-value *
         2}px)`;
-      break;
-    case "/SmartDashboard/drive/navX/yaw": // Gyro rotation
-      ui.gyro.val = value;
-      ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-      if (ui.gyro.visualVal < 0) {
-        // Corrects for negative values
-        ui.gyro.visualVal += 360;
-      }
-      ui.gyro.arm.style.transform = "rotate(" + ui.gyro.visualVal + "deg)";
-      ui.gyro.number.innerHTML = ui.gyro.visualVal + "º";
-      break;
-    // The following case is an example, for a robot with an arm at the front.
-    // Info on the actual robot that this works with can be seen at thebluealliance.com/team/1418/2016.
-    case "/SmartDashboard/arm/encoder":
-      // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
-      if (value > 1140) {
-        value = 1140;
-      } else if (value < 0) {
-        value = 0;
-      }
-      // Calculate visual rotation of arm
-      var armAngle = (value * 3) / 20 - 45;
-
-      // Rotate the arm in diagram to match real arm
-      ui.robotDiagram.arm.style.transform = "rotate(" + armAngle + "deg)";
-      break;
-    // This button is just an example of triggering an event on the robot by clicking a button.
-    case "/SmartDashboard/exampleVariable":
-      if (value) {
-        // If function is active:
-        // Add active class to button.
-        ui.example.button.className = "active";
-        ui.example.readout.innerHTML = "Value is true";
-      } else {
-        // Otherwise
-        // Take it off
-        ui.example.button.className = "";
-        ui.example.readout.innerHTML = "Value is false";
-      }
-      break;
-    case "/SmartDashboard/timeRunning":
-      // When this NetworkTables variable is true, the timer will start.
-      // You shouldn't need to touch this code, but it's documented anyway in case you do.
-      var s = 135;
-      if (value) {
-        // Make sure timer is reset to black when it starts
-        ui.timer.style.color = "black";
-        // Function below adjusts time left every second
-        var countdown = setInterval(function() {
-          s--; // Subtract one second
-          // Minutes (m) is equal to the total seconds divided by sixty with the decimal removed.
-          var m = Math.floor(s / 60);
-          // Create seconds number that will actually be displayed after minutes are subtracted
-          var visualS = s % 60;
-
-          // Add leading zero if seconds is one digit long, for proper time formatting.
-          visualS = visualS < 10 ? "0" + visualS : visualS;
-
-          if (s < 0) {
-            // Stop countdown when timer reaches zero
-            clearTimeout(countdown);
-            return;
-          } else if (s <= 15) {
-            // Flash timer if less than 15 seconds left
-            ui.timer.style.color = s % 2 === 0 ? "#FF3030" : "transparent";
-          } else if (s <= 30) {
-            // Solid red timer when less than 30 seconds left.
-            ui.timer.style.color = "#FF3030";
-          }
-          ui.timer.innerHTML = m + ":" + visualS;
-        }, 1000);
-      } else {
-        s = 135;
-      }
-      NetworkTables.setValue(key, false);
-      break;
-    case "/SmartDashboard/autonomous/options": // Load list of prewritten autonomous modes
-      // Clear previous list
-      while (ui.autoSelect.firstChild) {
-        ui.autoSelect.removeChild(ui.autoSelect.firstChild);
-      }
-      // Make an option for each autonomous mode and put it in the selector
-      for (i = 0; i < value.length; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = value[i];
-        ui.autoSelect.appendChild(option);
-      }
-      // Set value to the already-selected mode. If there is none, nothing will happen.
-      ui.autoSelect.value = NetworkTables.getValue(
-        "/SmartDashboard/currentlySelectedMode"
-      );
-      break;
-    case "/SmartDashboard/autonomous/selected":
-      ui.autoSelect.value = value;
       break;
   }
 
