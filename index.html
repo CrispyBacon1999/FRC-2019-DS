@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FRC Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Clock that shows up in top left -->
+    <div id="timer">2:15</div>
+    <header>
+      <!-- Tells whether robot is connected to dashboard. -->
+      <div id="robot-state">Unknown state</div>
+      <button id="tuning-button">Tuning</button>
+    </header>
+    <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
+        More explanation in that CSS rule. -->
+    <div id="camera"></div>
+    <div id="tuning" style="display: none;">
+      <input type="text" placeholder="Property" id="name" />
+      <input type="text" placeholder="Value" id="value" />
+      <button id="set">Set</button>
+      <button id="get">Get</button>
+    </div>
+    <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
+    <article>
+      <svg
+        id="robot-diagram"
+        width="332"
+        height="450"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect id="lift-frame" x="60" y="120" width="15" height="270" />
+        <path
+          d="m 0 450 l 15 0 l 0 -106 l -5 0 l 0 -48 l 5 0 l 0 -36 l -5 0 l 0 -48 l 5 0 l 0 -36 l -5 0 l 0 -48 l 5 0 q 0 -40 -15 -48"
+        ></path>
+        <svg id="elevator" x="5" y="275" width="70" height="150">
+          <rect id="elev-hatch-arm" x="0" y="55" width="70" height="8"></rect>
+          <rect id="elev-cargo-arm" x="10" y="65" width="60" height="8"></rect>
+          <path id="cargo-holder" d="m 60 70 a 1 1 0 0 1 -50 30 z"></path>
+        </svg>
+        <circle cx="100" cy="410" r="25" />
+        <circle cx="260" cy="410" r="25" />
+        <rect x="60" y="380" width="250" height="30" />
+        <text x="185" y="405" id="team" text-anchor="middle">703</text>
+      </svg>
+    </article>
+    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
+    <aside>
+      <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
+            The <p> below then says the value. -->
+      <div id="example-section">
+        <p>Elevator Height: <span id="elevator-height">0</span></p>
+      </div>
+      <!-- Autonomous selector -->
+      <div class="select-container">
+        <select id="auto-select">
+          <option>No auto modes found</option>
+          <!-- This gets populated by JS -->
+        </select>
+      </div>
+      <div>
+        <p>Adjust arm height</p>
+        <input id="arm-position" type="range" min="0" max="1200" value="770" />
+      </div>
+    </aside>
+    <script src="/networktables/networktables.js"></script>
+    <script src="ui.js"></script>
+  </body>
+</html>
