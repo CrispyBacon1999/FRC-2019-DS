@@ -8,24 +8,19 @@
 
   <body>
     <!-- Clock that shows up in top left -->
-    <div id="timer">2:15</div>
-    <header>
+    <section class="timer">
+      <div id="timer">2:15</div>
+    </section>
+    <section class="robot-info">
       <!-- Tells whether robot is connected to dashboard. -->
       <div id="robot-state">Unknown state</div>
       <button id="tuning-button">Tuning</button>
-    </header>
+    </section>
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
-    <div id="camera"></div>
-    <div id="tuning" style="display: none;">
-      <input type="text" placeholder="Property" id="name" />
-      <input type="text" placeholder="Value" id="value" />
-      <button id="set">Set</button>
-      <button id="get">Get</button>
-    </div>
-    <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
-    <article>
-      <svg
+    <div id="camera" class="camera"></div>
+    <section id="robot-model" class="robot-model">
+      <!-- <svg
         id="robot-diagram"
         width="332"
         height="450"
@@ -44,28 +39,21 @@
         <circle cx="260" cy="410" r="25" />
         <rect x="60" y="380" width="250" height="30" />
         <text x="185" y="405" id="team" text-anchor="middle">703</text>
-      </svg>
-    </article>
-    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-    <aside>
-      <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-      <div id="example-section">
-        <p>Elevator Height: <span id="elevator-height">0</span></p>
-      </div>
-      <!-- Autonomous selector -->
-      <div class="select-container">
-        <select id="auto-select">
-          <option>No auto modes found</option>
-          <!-- This gets populated by JS -->
-        </select>
-      </div>
-      <div>
-        <p>Adjust arm height</p>
-        <input id="arm-position" type="range" min="0" max="1200" value="770" />
-      </div>
-    </aside>
+      </svg> -->
+    </section>
+    <section class="ds">
+      <p>
+        This area is dedicated for the driver station software to overlay the
+        dashboard.
+      </p>
+    </section>
+    <section class="extra">
+      <div id="tuning" class="tuning"></div>
+    </section>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="lib/three.js"></script>
     <script src="/networktables/networktables.js"></script>
     <script src="ui.js"></script>
+    <script src="robot.js"></script>
   </body>
 </html>

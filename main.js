@@ -13,6 +13,8 @@ let mainWindow;
 // Define global reference to the python server (which we'll start next).
 let server;
 
+console.log(process.versions["chrome"]);
+
 function createWindow() {
   // Start python server.
   if (process.platform === "win32") {
