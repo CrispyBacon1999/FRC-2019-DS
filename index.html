@@ -14,33 +14,16 @@
     <section class="robot-info">
       <!-- Tells whether robot is connected to dashboard. -->
       <div id="robot-state">Unknown state</div>
-      <button id="tuning-button">Tuning</button>
+      <div id="driver-station"></div>
     </section>
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
-    <div id="camera" class="camera"></div>
-    <section id="robot-model" class="robot-model">
-      <!-- <svg
-        id="robot-diagram"
-        width="332"
-        height="450"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect id="lift-frame" x="60" y="120" width="15" height="270" />
-        <path
-          d="m 0 450 l 15 0 l 0 -106 l -5 0 l 0 -48 l 5 0 l 0 -36 l -5 0 l 0 -48 l 5 0 l 0 -36 l -5 0 l 0 -48 l 5 0 q 0 -40 -15 -48"
-        ></path>
-        <svg id="elevator" x="5" y="275" width="70" height="150">
-          <rect id="elev-hatch-arm" x="0" y="55" width="70" height="8"></rect>
-          <rect id="elev-cargo-arm" x="10" y="65" width="60" height="8"></rect>
-          <path id="cargo-holder" d="m 60 70 a 1 1 0 0 1 -50 30 z"></path>
-        </svg>
-        <circle cx="100" cy="410" r="25" />
-        <circle cx="260" cy="410" r="25" />
-        <rect x="60" y="380" width="250" height="30" />
-        <text x="185" y="405" id="team" text-anchor="middle">703</text>
-      </svg> -->
-    </section>
+    <div id="camera" class="camera">
+      <div class="label">
+        CAMERA
+      </div>
+    </div>
+    <section id="robot-model" class="robot-model"></section>
     <section class="ds">
       <p>
         This area is dedicated for the driver station software to overlay the
@@ -48,12 +31,16 @@
       </p>
     </section>
     <section class="extra">
-      <div id="tuning" class="tuning"></div>
+      <div id="tuning" class="tuning">
+        <div class="tuning-header">
+          <h3>Tuning</h3>
+        </div>
+      </div>
     </section>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="lib/three.js"></script>
+    <script src="node_modules/three/build/three.min.js"></script>
     <script src="/networktables/networktables.js"></script>
-    <script src="ui.js"></script>
     <script src="robot.js"></script>
+    <script src="ui.js"></script>
   </body>
 </html>

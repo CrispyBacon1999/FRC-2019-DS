@@ -40,6 +40,8 @@ body > * {
   font-family: "Bangers";
 }
 .robot-info {
+  font-family: "Bangers", sans-serif;
+  padding: 15px;
   grid-area: robotinfo;
 }
 .camera {
@@ -60,11 +62,22 @@ body > * {
 }
 .extra {
   grid-area: extra;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 #camera {
   background: #333;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-family: "Bangers", sans-serif;
   /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
   background-image: url("LINK TO CAMERA SOURCE HERE");
+}
+
+#camera .label {
+  display: inline-block;
 }
 svg * {
   stroke: white;
@@ -120,13 +133,63 @@ aside > * {
 }
 
 .tuning {
+  padding: 40px;
   display: grid;
   width: 100%;
   grid-template-columns: 1fr;
   grid-auto-rows: 50px;
 }
 
+.tuning-header {
+  text-align: center;
+  font-family: "Bangers", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
 .tuning-item {
   display: grid;
-  grid-template-columns: 1fr 80px auto;
+  grid-template-columns: 1fr auto auto;
+  gap: 5px;
+  line-height: 50px;
+}
+
+.tuning-item h4 {
+  text-align: right;
+}
+
+.tuning-item input {
+  background: transparent;
+  color: white;
+  border-width: 0;
+  font-size: 1rem;
+  padding: 3px 15px;
+  transition: box-shadow 0.25s ease-in-out;
+  box-shadow: tomato 0px 3px 3px -3px;
+  box-sizing: border-box;
+  width: 300px;
+}
+
+.tuning-item input:disabled {
+  box-shadow: black 0px 3px 3px -3px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.tuning-button {
+  padding: 3px 20px;
+  background: tomato;
+  font-family: "Bangers", sans-serif;
+  font-size: 1rem;
+  border: none;
+  margin: 2px;
+  cursor: pointer;
 }

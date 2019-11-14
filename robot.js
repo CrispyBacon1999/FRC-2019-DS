@@ -52,9 +52,6 @@ class Renderable {
   update = () => {};
 }
 
-class Elevator extends Renderable {
-  currentHeight = 0;
-}
 class Hatch extends Renderable {
   upper_angle = -60;
   lower_angle = 0;
@@ -94,13 +91,31 @@ class CargoArm extends Renderable {
   rotation = 0;
 }
 
+class Elevator extends Renderable {
+  currentHeight = 0;
+  constructor() {
+    super();
+    this.cargoBowl = new CargoBowl();
+    this.cargoArm = new CargoArm();
+    this.hatch = new Hatch();
+  }
+  attach = scene => {
+    scene.add(this.Mesh);
+    this.cargoBowl.attach(scene);
+    this.cargoArm.attach(scene);
+    this.hatch.attach(scene);
+  };
+  update = scene => {
+    this.hatch.update();
+    this.cargoBowl.update();
+    this.cargoArm.update();
+  };
+}
+
 class Robot extends Renderable {
   constructor() {
     super();
     this.elevator = new Elevator();
-    this.cargoBowl = new CargoBowl();
-    this.cargoArm = new CargoArm();
-    this.hatch = new Hatch();
     this.Mesh = new THREE.Mesh(this.getModel(), this.getMaterial());
     this.ElevatorShaftMesh = new THREE.Mesh(
       new THREE.BoxGeometry(2, 96, 30),
@@ -127,16 +142,10 @@ class Robot extends Renderable {
     scene.add(this.getMesh());
     scene.add(this.getElevatorMesh());
     this.elevator.attach(scene);
-    this.cargoBowl.attach(scene);
-    this.cargoArm.attach(scene);
-    this.hatch.attach(scene);
   };
 
   update = () => {
     this.elevator.update();
-    this.cargoBowl.update();
-    this.cargoArm.update();
-    this.hatch.update();
   };
 }
 camera.position.z = 50;

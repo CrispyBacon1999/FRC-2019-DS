@@ -90,4 +90,7 @@ if __name__ == '__main__':
     logger.info('Listening on http://localhost:%s/', options.port)
 
     app.listen(options.port)
-    IOLoop.current().start()
+    try:
+        IOLoop.current().start()
+    except:
+        IOLoop.current().stop()

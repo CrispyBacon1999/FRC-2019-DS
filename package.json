@@ -17,6 +17,7 @@
   },
   "homepage": "http://frcdashboard.github.io",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "three": "^0.110.0"
   }
 }
